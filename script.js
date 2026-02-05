@@ -15,7 +15,7 @@ let yesClicked = false;
 let initialYesBtnPos = null;
 let initialNoBtnPos = null;
 
-// Store current mouse position
+// Store current mouse/touch position
 let currentMouseX = 0;
 let currentMouseY = 0;
 
@@ -60,6 +60,27 @@ document.addEventListener('mousemove', (e) => {
     currentMouseX = e.clientX;
     currentMouseY = e.clientY;
 });
+
+// Track touch position for mobile (touch-repel)
+document.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) {
+        currentMouseX = e.touches[0].clientX;
+        currentMouseY = e.touches[0].clientY;
+    }
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+        currentMouseX = e.touches[0].clientX;
+        currentMouseY = e.touches[0].clientY;
+    }
+}, { passive: true });
+
+document.addEventListener('touchend', () => {
+    // Move the virtual cursor far away so the button returns
+    currentMouseX = -9999;
+    currentMouseY = -9999;
+}, { passive: true });
 
 // Continuous animation loop to update button position
 function updateButtonPosition() {
