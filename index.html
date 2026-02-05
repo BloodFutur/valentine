@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my valentine?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="min-h-screen bg-gradient-to-br from-pink-200 via-pink-100 to-purple-200 flex items-center justify-center p-4">
+        <!-- Paper Sheet Container -->
+        <div class="paper-sheet">
+            <div class="text-center">
+                <!-- Main Question -->
+                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-pink-800" style="font-family: 'Playfair Display', serif;">
+                    Will you be my valentine?
+                </h1>
+
+                <!-- Decorative Elements -->
+                <div class="mb-8">
+                    <span class="text-4xl">💕</span>
+                    <span class="text-4xl mx-2">💜</span>
+                    <span class="text-4xl">💕</span>
+                </div>
+
+                <!-- Buttons Container -->
+                <div class="flex gap-6 justify-center items-center flex-wrap">
+                    <!-- Yes Button -->
+                    <button id="yesBtn" class="yes-button">
+                        Yes
+                    </button>
+
+                    <!-- No Button -->
+                    <button id="noBtn" class="no-button">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

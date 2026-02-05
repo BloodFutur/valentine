@@ -1,0 +1,119 @@
+/* Paper Sheet Design */
+.paper-sheet {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 245, 0.95) 100%);
+    padding: 60px 40px;
+    border-radius: 8px;
+    box-shadow: 
+        0 10px 30px rgba(236, 72, 153, 0.2),
+        0 0 0 1px rgba(236, 72, 153, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    border: 2px solid rgba(236, 72, 153, 0.1);
+}
+
+/* Paper texture effect */
+.paper-sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(236, 72, 153, 0.02) 2px,
+            rgba(236, 72, 153, 0.02) 4px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(236, 72, 153, 0.02) 2px,
+            rgba(236, 72, 153, 0.02) 4px
+        );
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.paper-sheet > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Yes Button */
+.yes-button {
+    padding: 16px 48px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.yes-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+}
+
+.yes-button:active {
+    transform: scale(0.95);
+}
+
+/* No Button */
+.no-button {
+    padding: 16px 48px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a78bfa 0%, #9333ea 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    pointer-events: none;
+}
+
+/* Floating animation for yes button on success */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.floating {
+    animation: float 1s ease-in-out infinite;
+}
+
+/* Celebration confetti effect */
+@keyframes confetti-fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: fixed;
+    pointer-events: none;
+    animation: confetti-fall 3s linear forwards;
+}
