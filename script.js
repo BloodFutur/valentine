@@ -19,6 +19,10 @@ let initialNoBtnPos = null;
 let currentMouseX = 0;
 let currentMouseY = 0;
 
+// Gyro-tilt config
+const GYRO_SCALE = 8; // Higher = more sensitive
+let gyroEnabled = false;
+
 // Wait for DOM to be ready to capture initial positions
 window.addEventListener('DOMContentLoaded', () => {
     const yesRect = yesBtn.getBoundingClientRect();
@@ -81,6 +85,44 @@ document.addEventListener('touchend', () => {
     currentMouseX = -9999;
     currentMouseY = -9999;
 }, { passive: true });
+
+// Initialize gyro on first user gesture (required on iOS)
+function initGyroTilt() {
+    if (gyroEnabled) return;
+
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+            .then((response) => {
+                if (response === 'granted') {
+                    gyroEnabled = true;
+                    window.addEventListener('deviceorientation', handleTilt, true);
+                }
+            })
+            .catch(() => {
+                // Permission denied or not available
+            });
+    } else if (typeof DeviceOrientationEvent !== 'undefined') {
+        gyroEnabled = true;
+        window.addEventListener('deviceorientation', handleTilt, true);
+    }
+}
+
+function handleTilt(event) {
+    // beta: front-back (-180 to 180), gamma: left-right (-90 to 90)
+    const beta = event.beta || 0;
+    const gamma = event.gamma || 0;
+
+    // Map tilt to a virtual cursor position around screen center
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    currentMouseX = centerX + gamma * GYRO_SCALE;
+    currentMouseY = centerY + beta * GYRO_SCALE;
+}
+
+// Enable gyro on first interaction
+document.addEventListener('click', initGyroTilt, { once: true });
+document.addEventListener('touchstart', initGyroTilt, { once: true, passive: true });
 
 // Continuous animation loop to update button position
 function updateButtonPosition() {
